@@ -1,6 +1,25 @@
 {
   "releases": [
     {
+      "version": "0.4.1",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [],
+        "changed": [],
+        "fixed": [
+          {
+            "en": "Static CSV downloads retain the correct report filename and keep the download URL alive until the browser starts saving.",
+            "zh-CN": "静态 CSV 下载保留对应报表文件名，并延后释放下载链接以便浏览器完成保存。"
+          },
+          {
+            "en": "The static web entry no longer uses a reserved Next.js directory.",
+            "zh-CN": "静态网页入口移出 Next.js 保留目录。"
+          }
+        ],
+        "removed": []
+      }
+    },
+    {
       "version": "0.4.0",
       "date": "2026-09-22",
       "changes": {

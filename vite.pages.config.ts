@@ -19,6 +19,6 @@ export default defineConfig({
     "process.env.NEXT_PUBLIC_STATIC_DEMO": JSON.stringify("true"),
     "process.env.NEXT_PUBLIC_SITE_BASE": JSON.stringify(base.slice(0, -1)),
   },
-  build: { outDir: "dist-pages", emptyOutDir: true, rollupOptions: { input: "static/index.html" } },
+  build: { outDir: "dist-pages", emptyOutDir: true, rollupOptions: { input: "web-entry/index.html" } },
   preview: { host: "127.0.0.1", port: 4173, strictPort: true },
 });

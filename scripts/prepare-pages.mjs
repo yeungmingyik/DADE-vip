@@ -2,7 +2,7 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const output = resolve("dist-pages");
-const html = await readFile(resolve(output, "static/index.html"), "utf8");
+const html = await readFile(resolve(output, "web-entry/index.html"), "utf8");
 await writeFile(resolve(output, "index.html"), html);
 await writeFile(resolve(output, "404.html"), html);
 await writeFile(resolve(output, ".nojekyll"), "");
