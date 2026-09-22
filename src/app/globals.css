@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f5f6f3;
+  --foreground: #172e29;
+  --card: #ffffff;
+  --card-foreground: #172e29;
+  --popover: #ffffff;
+  --popover-foreground: #172e29;
+  --primary: #19634e;
+  --primary-foreground: #ffffff;
+  --secondary: #e9efea;
+  --secondary-foreground: #244f40;
+  --muted: #f0f3ef;
+  --muted-foreground: #6b7972;
+  --accent: #e7eee8;
+  --accent-foreground: #184536;
+  --destructive: #b6423f;
+  --border: #e1e7df;
+  --input: #dbe3da;
+  --ring: #648e74;
+  --radius: 0.85rem;
+  --sidebar: #123d36;
+  --sidebar-foreground: #edf3ec;
+  --sidebar-primary: #cbe4bc;
+  --sidebar-primary-foreground: #123d36;
+  --sidebar-accent: #234e46;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #31574d;
+  --sidebar-ring: #96b995;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: "Noto Sans Variable", "Noto Sans SC Variable", sans-serif;
+  --font-mono: "Noto Sans Variable", "Noto Sans SC Variable", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; margin: 0; }
+  html:has(.admin-shell), body:has(.admin-shell) { overflow: hidden; overscroll-behavior: none; }
+  button, a, input, select { -webkit-tap-highlight-color: transparent; }
+  button, [role="button"] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+  ::selection { background: #c8e0c5; color: #123d36; }
+  h1, h2, h3 { letter-spacing: -0.035em; }
+}
+
+@keyframes member-arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes points-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.animate-member-arrive { animation: member-arrive 280ms ease-out; }
+.animate-points-settle { animation: points-settle 320ms ease-out; }
+.animate-fade-up { animation: fade-up 240ms ease-out; }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+.field-select { @apply h-10 rounded-lg border border-input bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-ring/30; }
+.page-heading { @apply text-2xl font-semibold tracking-tight sm:text-3xl; }
+.eyebrow { @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

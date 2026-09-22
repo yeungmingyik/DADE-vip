@@ -1,0 +1,166 @@
+{
+  "releases": [
+    {
+      "version": "0.4.0",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [
+          {
+            "en": "Head-office reward and store creation, editing and deletion with bilingual names, local reward images, store stock and staff store assignments.",
+            "zh-CN": "总部礼品与门店新增、编辑和删除，支持双语名称、本地礼品图片、分店库存及员工门店授权。"
+          },
+          {
+            "en": "Soft deletion preserves historical references and blocks reward or store removal while redemptions await handover.",
+            "zh-CN": "软删除保留历史引用，礼品或门店仍有待交付兑换时阻挡删除。"
+          },
+          {
+            "en": "GitHub Pages static-demo build and preview targets reuse the existing bilingual member, staff and head-office interfaces alongside the retained Next.js backend.",
+            "zh-CN": "新增 GitHub Pages 静态演示构建与预览目标，复用现有双语会员、员工和总部界面，同时保留 Next.js 完整后端。"
+          },
+          {
+            "en": "The static demo persists synthetic data within one browser, shares it across the three workspaces and simulates phone verification without sending SMS.",
+            "zh-CN": "静态演示在同一浏览器中保存并向三端共享合成数据，模拟手机号验证，不发送短信。"
+          }
+        ],
+        "changed": [
+          {
+            "en": "Head-office navigation and content scroll independently within the application viewport.",
+            "zh-CN": "总部导航与内容在应用视口内分别滚动。"
+          },
+          {
+            "en": "Catalog forms preserve drafts during polling, lock pending submissions and show object-specific save and deletion results.",
+            "zh-CN": "目录表单在轮询期间保留草稿，锁定待完成提交并显示对应对象的保存与删除结果。"
+          }
+        ],
+        "fixed": [
+          {
+            "en": "Deleted or unavailable rewards leave current catalogs, empty catalogs show a clear state, and invalidated stores stop unsubmitted staff transactions without changing historical receipts.",
+            "zh-CN": "已删除或下架礼品退出当前目录，补全空目录状态；门店失效时阻止未提交员工交易，历史回执保持不变。"
+          }
+        ],
+        "removed": []
+      }
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [
+          {
+            "en": "Separate member, staff and head-office entry points with server-enforced application surfaces and a three-port demo launcher.",
+            "zh-CN": "会员、员工与总部独立入口，服务端限制对应使用端，并提供三端口演示启动器。"
+          },
+          {
+            "en": "Demo phone verification for returning members and new-member registration, with expiring codes, resend limits and one-time registration credentials.",
+            "zh-CN": "现有会员手机号验证登录及新会员注册演示，包含验证码过期、重发限制与一次性注册凭证。"
+          },
+          {
+            "en": "Dedicated staff and head-office sign-in pages using authorized synthetic accounts.",
+            "zh-CN": "员工与总部使用各自授权合成账号的独立登录页面。"
+          }
+        ],
+        "changed": [
+          {
+            "en": "Staff purchases and redemptions now follow member identification, entry, confirmation and receipt steps, with separate handover and record views.",
+            "zh-CN": "员工消费与兑换按识别会员、填写、确认和回执顺序办理，另设交付与记录视图。"
+          },
+          {
+            "en": "English and Simplified Chinese interfaces use locally bundled Noto Sans and Noto Sans SC fonts.",
+            "zh-CN": "英文与简体中文界面统一使用本地打包的 Noto Sans 和 Noto Sans SC 字体。"
+          }
+        ],
+        "fixed": [
+          {
+            "en": "Phone normalization, verification recovery, phone-specific resend countdowns and form focus handling during member authentication.",
+            "zh-CN": "修正手机号规范化、验证失效恢复、按手机号区分的重发倒计时和会员认证表单焦点处理。"
+          },
+          {
+            "en": "Transaction receipts retain exact server snapshots on idempotent retries; business errors preserve their HTTP status across server bundles.",
+            "zh-CN": "幂等重试返回准确的服务端交易回执快照；修正不同服务端构建模块之间的业务错误状态。"
+          }
+        ],
+        "removed": [
+          {
+            "en": "The shared role-selection portal and Inter font dependency.",
+            "zh-CN": "移除共用角色选择入口和 Inter 字体依赖。"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [
+          {
+            "en": "Bilingual member, store and head-office workspaces with persistent synthetic data.",
+            "zh-CN": "中英双语会员、门店和总部界面及持久化合成数据。"
+          },
+          {
+            "en": "Digital membership cards, member codes, purchase receipts, points and tier feedback.",
+            "zh-CN": "数字会员卡、会员码、消费回执、积分与等级反馈。"
+          },
+          {
+            "en": "Purchases, refunds, reward redemption, collection and cancellation with transactional permissions and idempotency.",
+            "zh-CN": "消费、退款、礼品兑换、交付及取消，包含事务、权限与幂等校验。"
+          },
+          {
+            "en": "Member, reward, stock, staff and rule management, filtered records and bilingual CSV exports.",
+            "zh-CN": "会员、礼品、库存、员工及规则管理，记录筛选和双语 CSV 导出。"
+          },
+          {
+            "en": "Database migrations, domain regression tests and automated build checks.",
+            "zh-CN": "数据库迁移、业务回归测试及自动构建检查。"
+          }
+        ],
+        "changed": [],
+        "fixed": [],
+        "removed": []
+      }
+    },
+    {
+      "version": "0.1.1",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [
+          {
+            "en": "Local member experience specification for cards, receipts, points, tiers and redemption feedback.",
+            "zh-CN": "本地会员卡、消费回执、积分、等级及兑换反馈体验规范。"
+          }
+        ],
+        "changed": [
+          {
+            "en": "Role-specific interface strategy and acceptance criteria for cross-device updates and motion.",
+            "zh-CN": "三端界面策略及跨设备更新、动效验收标准。"
+          }
+        ],
+        "fixed": [],
+        "removed": []
+      }
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-09-22",
+      "changes": {
+        "added": [
+          {
+            "en": "Repository configuration and release metadata validation.",
+            "zh-CN": "仓库配置与版本记录校验。"
+          },
+          {
+            "en": "Local product, architecture, interface, quality and delivery plans.",
+            "zh-CN": "本地产品、架构、界面、质量与交付规划。"
+          }
+        ],
+        "changed": [],
+        "fixed": [],
+        "removed": [
+          {
+            "en": "Superseded DADE requirements checklist.",
+            "zh-CN": "已替换的 DADE 需求确认清单。"
+          }
+        ]
+      }
+    }
+  ]
+}
