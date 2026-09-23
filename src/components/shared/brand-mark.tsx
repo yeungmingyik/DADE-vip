@@ -1,6 +1,7 @@
-import { BRAND_NAME } from "@/lib/brand";
+import Image from "next/image";
+import { BRAND_LOGO, BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
-export function BrandMark({ className, accentClassName }: { className?: string; accentClassName?: string }) {
-  return <span className={cn("inline-flex items-baseline font-extrabold tracking-[-0.055em]", className)}>{BRAND_NAME}<span aria-hidden="true" className={cn("text-[#9ba971]", accentClassName)}>.</span></span>;
+export function BrandMark({ className, onDark = false }: { className?: string; onDark?: boolean }) {
+  return <span className={cn("inline-flex shrink-0 items-center", onDark && "rounded-md bg-white px-2.5 py-2", className)}><Image src={BRAND_LOGO} alt={BRAND_NAME} width={199} height={44} priority className="h-auto w-28" /></span>;
 }

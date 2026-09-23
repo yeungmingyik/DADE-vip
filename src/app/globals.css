@@ -4,33 +4,34 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #f5f6f3;
-  --foreground: #172e29;
+  --background: #f8f6f6;
+  --foreground: #282326;
   --card: #ffffff;
-  --card-foreground: #172e29;
+  --card-foreground: #282326;
   --popover: #ffffff;
-  --popover-foreground: #172e29;
-  --primary: #19634e;
+  --popover-foreground: #282326;
+  --primary: #bd202b;
   --primary-foreground: #ffffff;
-  --secondary: #e9efea;
-  --secondary-foreground: #244f40;
-  --muted: #f0f3ef;
-  --muted-foreground: #6b7972;
-  --accent: #e7eee8;
-  --accent-foreground: #184536;
-  --destructive: #b6423f;
-  --border: #e1e7df;
-  --input: #dbe3da;
-  --ring: #648e74;
+  --secondary: #f7e9eb;
+  --secondary-foreground: #7f202b;
+  --muted: #f3f0f1;
+  --muted-foreground: #756a70;
+  --accent: #fbe6e8;
+  --accent-foreground: #8f1825;
+  --destructive: #a51b2b;
+  --destructive-foreground: #ffffff;
+  --border: #e8e1e3;
+  --input: #ded4d8;
+  --ring: #be5f6b;
   --radius: 0.85rem;
-  --sidebar: #123d36;
-  --sidebar-foreground: #edf3ec;
-  --sidebar-primary: #cbe4bc;
-  --sidebar-primary-foreground: #123d36;
-  --sidebar-accent: #234e46;
+  --sidebar: #242126;
+  --sidebar-foreground: #f6eef0;
+  --sidebar-primary: #fbe6e8;
+  --sidebar-primary-foreground: #8f1825;
+  --sidebar-accent: #393037;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #31574d;
-  --sidebar-ring: #96b995;
+  --sidebar-border: #4b3b44;
+  --sidebar-ring: #d18b95;
 }
 
 @theme inline {
@@ -49,6 +50,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -76,7 +78,7 @@
   button, [role="button"] { cursor: pointer; }
   button:disabled { cursor: not-allowed; }
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
-  ::selection { background: #c8e0c5; color: #123d36; }
+  ::selection { background: #f5cdd2; color: #501b24; }
   h1, h2, h3 { letter-spacing: -0.035em; }
 }
 

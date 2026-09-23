@@ -32,9 +32,7 @@ export function Topbar({ role }: { role: Role }) {
   }
   return <header className="relative flex min-h-20 items-center justify-between gap-3 border-b bg-white/90 px-4 sm:px-8">
     <Link href={`/${locale}/${role}`} className="flex min-w-0 items-center gap-3" aria-label={BRAND_LABEL}>
-      <BrandMark className="text-[25px]" />
-      <span className="hidden h-7 w-px bg-border sm:block" />
-      <span className="hidden text-[10px] font-medium leading-relaxed text-muted-foreground sm:block">Sing Spare Parts<br />Co. Pte Ltd</span>
+      <BrandMark />
     </Link>
     <div className="flex items-center gap-1 sm:gap-2">
       <span className="mr-2 hidden text-xs font-medium text-muted-foreground sm:block">{t(role)}</span>

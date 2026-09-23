@@ -3,7 +3,7 @@ import { apiRequest } from "@/lib/api-client";
 
 import Link from "next/link";
 import { BrandMark } from "@/components/shared/brand-mark";
-import { BRAND_LABEL, BRAND_NAME } from "@/lib/brand";
+import { BRAND_LABEL } from "@/lib/brand";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -250,20 +250,19 @@ export function MemberAuth({ enabled }: { enabled: boolean }) {
           : step === "phone" && resendRemaining > 0 ? t("requestCountdown", { seconds: resendRemaining })
             : step === "phone" ? t("sendCode") : step === "code" ? t("verify") : t("register");
 
-  return <div className="min-h-svh bg-[#f6f7f4] text-[#1d2925]">
+  return <div className="min-h-svh bg-[#f8f6f6] text-[#282326]">
     <header className="mx-auto flex min-h-20 max-w-6xl items-center justify-between gap-3 px-4 sm:px-8">
-      <Link href={`/${locale}`} aria-label={BRAND_LABEL} className="inline-flex min-h-11 items-center"><BrandMark className="text-[27px]" /></Link>
+      <Link href={`/${locale}`} aria-label={BRAND_LABEL} className="inline-flex min-h-11 items-center"><BrandMark /></Link>
       <Button type="button" variant="ghost" className="min-h-11 gap-2 px-3 text-xs" disabled={busyState} aria-label={`${t("language")}: ${t("languageOption")}`} onClick={() => setLocale(locale === "en" ? "zh-CN" : "en")}><Languages aria-hidden="true" className="size-4" />{t("languageOption")}</Button>
     </header>
     <main className="mx-auto flex w-full max-w-[480px] flex-col px-4 pb-12 pt-4 sm:pt-10">
       {step !== "phone" && <div className="mb-4"><Button ref={changePhoneButton} type="button" variant="ghost" className="min-h-11 gap-2 px-1 text-xs text-stone-600" disabled={busyState} onClick={changePhone}><ArrowLeft aria-hidden="true" className="size-4" />{t("changePhone")}</Button></div>}
-      <Card className="overflow-hidden rounded-[24px] border-stone-200/80 shadow-[0_12px_40px_-24px_rgba(20,61,50,0.25)]">
-        <div className="relative isolate overflow-hidden bg-[#153e34] px-6 pb-7 pt-6 text-white sm:px-8 sm:pb-8 sm:pt-8">
-          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-28 -z-10 size-72 rounded-full border border-[#d8dfb1]/15" />
-          <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 -z-10 size-48 rounded-full bg-[#789176]/10" />
-          <div className="mb-8 flex items-center justify-between gap-3"><span className="text-[10px] font-medium uppercase tracking-[0.19em] text-[#d5e4c5]">{BRAND_NAME} · {t("membership")}</span><CreditCard aria-hidden="true" className="size-6 stroke-[1.5] text-[#d5e4c5]" /></div>
+      <Card className="overflow-hidden rounded-[24px] border-stone-200/80 shadow-[0_12px_40px_-24px_rgba(80,27,36,0.2)]">
+        <div className="relative isolate overflow-hidden bg-[#501b24] px-6 pb-7 pt-6 text-white sm:px-8 sm:pb-8 sm:pt-8">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-28 -z-10 size-72 rounded-full border border-[#efbcc4]/15" />
+          <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 -z-10 size-48 rounded-full bg-[#df8997]/10" />
+          <div className="mb-8 flex items-center justify-between gap-3"><span className="text-[10px] font-medium uppercase tracking-[0.19em] text-[#f0cdd3]">{t("membership")}</span><CreditCard aria-hidden="true" className="size-6 stroke-[1.5] text-[#f0cdd3]" /></div>
           <h1 className="text-[26px] font-medium leading-tight tracking-[-0.035em] sm:text-[30px]">{t(title)}</h1>
-          <p className="mt-3 text-[10px] leading-relaxed tracking-[0.035em] text-[#d4dfd3]">Sing Spare Parts Co. Pte Ltd</p>
         </div>
         <CardContent className="p-6 sm:p-8">
           <form onSubmit={submitForm} noValidate aria-busy={busyState} className="space-y-6">
@@ -278,13 +277,13 @@ export function MemberAuth({ enabled }: { enabled: boolean }) {
               {expired && !error && <p id="member-code-expired" role="status" className="text-sm leading-relaxed text-destructive">{t("codeExpired")}</p>}
             </div>}
             {step === "register" && registration && <div className="space-y-5">
-              <div className="flex items-center gap-3 rounded-xl bg-[#f1f5ef] px-4 py-3"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-emerald-800"><Check aria-hidden="true" className="size-4" /></span><div className="min-w-0"><p className="text-xs font-medium text-emerald-900">{t("phoneVerified")}</p><p dir="ltr" className="mt-1 text-sm text-stone-600">{registration.phone}</p></div></div>
+              <div className="flex items-center gap-3 rounded-xl bg-emerald-50 px-4 py-3"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-emerald-800"><Check aria-hidden="true" className="size-4" /></span><div className="min-w-0"><p className="text-xs font-medium text-emerald-900">{t("phoneVerified")}</p><p dir="ltr" className="mt-1 text-sm text-stone-600">{registration.phone}</p></div></div>
               <div className="space-y-2.5"><label htmlFor="member-name" className="text-sm font-medium">{t("name")}</label><Input ref={nameInput} id="member-name" name="name" autoComplete="name" enterKeyHint="done" value={name} onChange={(event) => { setName(event.target.value); setError(null); }} placeholder={t("namePlaceholder")} maxLength={80} required disabled={disabled} aria-invalid={error === "NAME_INVALID"} aria-describedby={error ? "member-auth-error" : undefined} className="h-13 rounded-xl bg-white text-base shadow-none md:text-base" /></div>
             </div>}
             <div className="space-y-3">
               {(!enabled || visibleError) && <p id="member-auth-error" role="alert" className="text-sm leading-relaxed text-destructive">{!enabled ? t("unavailable") : t(`errors.${visibleError}`)}</p>}
               {notice && !error && !expired && <p role="status" className="text-xs leading-relaxed text-emerald-800">{t(notice)}</p>}
-              <Button type="submit" disabled={disabled || (step === "phone" && resendRemaining > 0) || (step === "code" && codeUnavailable)} className="min-h-13 w-full gap-2 rounded-xl bg-[#153e34] px-4 text-sm text-white hover:bg-[#204f41]">
+              <Button type="submit" disabled={disabled || (step === "phone" && resendRemaining > 0) || (step === "code" && codeUnavailable)} className="min-h-13 w-full gap-2 rounded-xl bg-primary px-4 text-sm text-primary-foreground hover:bg-primary/90">
                 {busyState ? <LoaderCircle aria-hidden="true" className="size-4 motion-safe:animate-spin" /> : null}<span>{submitLabel}</span>{!busyState && <ArrowRight aria-hidden="true" className="size-4" />}
               </Button>
               {step === "code" && <Button ref={resendButton} type="button" variant="ghost" className="min-h-11 w-full rounded-xl text-xs text-stone-600" onClick={requestCode} disabled={disabled || resendRemaining > 0}>{resendRemaining > 0 ? t("resendCountdown", { seconds: resendRemaining }) : t("resend")}</Button>}
