@@ -1,6 +1,7 @@
 import { createHash, randomBytes, randomInt, randomUUID, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 import type { OtpDelivery } from "../integrations/member-otp";
+import { nextMemberNumber } from "../modules/member-numbers";
 import { DomainError } from "./errors";
 import type { SspcService } from "./service";
 
@@ -117,8 +118,9 @@ export class MemberAuthService {
       if (member?.status === "suspended") return new DomainError("MEMBER_SUSPENDED", 403);
       if (!member) {
         const id = `m-${randomUUID()}`;
-        const sequence = this.service.database.prepare("SELECT COALESCE(MAX(CAST(substr(number, 6) AS INTEGER)), 10000) + 1 AS value FROM members").get() as { value: number };
-        this.service.database.prepare("INSERT INTO members (id, number, code, name, phone, joined_at, status, points) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(id, `SSPC ${sequence.value}`, `sspc_${randomUUID().replaceAll("-", "")}`, name, registration.phone, now, "active", 0);
+        const numbers = this.service.database.prepare("SELECT number FROM members").all() as { number: string }[];
+        const number = nextMemberNumber(numbers.map((entry) => entry.number));
+        this.service.database.prepare("INSERT INTO members (id, number, code, name, phone, joined_at, status, points) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(id, number, `dade_${randomUUID().replaceAll("-", "")}`, name, registration.phone, now, "active", 0);
         this.service.database.prepare("INSERT INTO audit (id, actor, action, entity_id, store_id, details, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)").run(randomUUID(), id, "registerMember", id, null, "{}", now);
         member = { id, status: "active" };
       }

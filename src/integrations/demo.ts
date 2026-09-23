@@ -11,11 +11,11 @@ export interface MemberScanInput {
 
 export function parseMemberScan(input: MemberScanInput): string {
   const code = input.code.trim();
-  if (!/^sspc_[a-zA-Z0-9_-]{12,64}$/.test(code)) throw new DomainError("INVALID_MEMBER_CODE");
+  if (!/^(?:dade|sspc)_[a-zA-Z0-9_-]{12,64}$/.test(code)) throw new DomainError("INVALID_MEMBER_CODE");
   return code;
 }
 
 export function createDemoCashierInput(amountCents: number): { amountCents: number; receipt: string } {
   requireDemoMode();
-  return { amountCents, receipt: `SSPC-${randomUUID()}` };
+  return { amountCents, receipt: `DADE-${randomUUID()}` };
 }

@@ -45,7 +45,7 @@ export function seedDatabase(database: DatabaseSync, now: Date): void {
       const joinedAt = new Date(now.getTime() - (120 + index * 4) * 86400000).toISOString();
       const initialBalance = index === 0 ? 24 : 4 + (index % 8) * 3;
       const visits = Math.min(index === 0 ? 7 : (index * 3 + 2) % 12, lastDay);
-      insertMember.run(id, `SSPC ${String(10001 + index)}`, `sspc_${randomUUID().replaceAll("-", "")}`, name, `+658000${String(1001 + index)}`, joinedAt, index === 22 ? "suspended" : "active", initialBalance + visits);
+      insertMember.run(id, `DADE ${String(10001 + index)}`, `dade_${randomUUID().replaceAll("-", "")}`, name, `+658000${String(1001 + index)}`, joinedAt, index === 22 ? "suspended" : "active", initialBalance + visits);
       insertActivity.run(randomUUID(), "adjustment", id, `opening-${id}`, "st001", initialBalance, initialBalance, null, joinedAt);
       for (let visit = 0; visit < visits; visit++) {
         const day = Math.max(1, lastDay - visits + visit + 1);

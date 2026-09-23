@@ -201,7 +201,9 @@ describe("browser demo authentication and HTTP responses", () => {
     expect(demo.state.members).toHaveLength(24);
     expect((await demo.request("/api/auth/member", input({ action: "register", registrationToken: verified.registrationToken, name: "  New Member  " }))).body.status).toBe("authenticated");
     const member = (await demo.request<AppData>("/api/state?role=member")).body.selectedMember!;
-    expect(member).toMatchObject({ name: "New Member", phone: "+6590001001", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0 });
+    expect(member).toMatchObject({ number: "DADE 10025", name: "New Member", phone: "+6590001001", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0 });
+    expect(member.code).toMatch(/^dade_[a-f0-9]{32}$/);
+    expect(demo.data("staff", { search: member.number }).members.map((entry) => entry.id)).toEqual([member.id]);
     expect((await demo.request("/api/auth/member", input({ action: "register", registrationToken: verified.registrationToken, name: "Duplicate" }))).body.error).toBe("REGISTRATION_INVALID");
     expect(demo.state.members).toHaveLength(25);
   });

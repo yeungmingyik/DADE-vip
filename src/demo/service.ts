@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { Role, Session } from "../lib/types";
+import { nextMemberNumber } from "../modules/member-numbers";
 import { sessionSchema, stateQuerySchema } from "../server/validation";
 import { appendDemoAudit, createDemoState, DemoError, demoSession, establishDemoSession, executeDemoAction, exportDemoCsv, readDemoAppData, type DemoState } from "./domain";
 import { readDemoStorage, withDemoStorage } from "./storage";
@@ -94,9 +95,9 @@ function authenticateMember(state: DemoState, body: unknown, now: Date): unknown
   let member = state.members.find((item) => item.phone === registration.phone);
   if (member?.status === "suspended") throw new DemoError("MEMBER_SUSPENDED", 403, {}, true);
   if (!member) {
-    const sequence = Math.max(10000, ...state.members.map((item) => Number(item.number.slice(5)))) + 1;
+    const number = nextMemberNumber(state.members.map((item) => item.number));
     const id = `m-${crypto.randomUUID()}`;
-    member = { id, number: `SSPC ${sequence}`, code: `sspc_${crypto.randomUUID().replaceAll("-", "")}`, name: input.name, phone: registration.phone, joinedAt: timestamp, status: "active", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0, totalSpendCents: 0 };
+    member = { id, number, code: `dade_${crypto.randomUUID().replaceAll("-", "")}`, name: input.name, phone: registration.phone, joinedAt: timestamp, status: "active", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0, totalSpendCents: 0 };
     state.members.push(member);
     appendDemoAudit(state, id, "registerMember", id, null, now);
   }

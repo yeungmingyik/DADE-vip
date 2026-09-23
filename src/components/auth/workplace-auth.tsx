@@ -39,13 +39,13 @@ export function WorkplaceAuth({ role, enabled, accounts }: { role: Exclude<Role,
     }
   }
 
-  return <main className="min-h-svh bg-[#f8f6f6] text-[#282326]">
+  return <main className="min-h-svh bg-background text-foreground">
     <header className="mx-auto flex min-h-20 max-w-7xl items-center justify-between px-5 sm:px-10"><BrandMark /><Button variant="ghost" className="min-h-11 gap-2 text-xs" disabled={pending} aria-label={`${t("language")}: ${t("languageOption")}`} onClick={() => setLocale(locale === "en" ? "zh-CN" : "en")}><Languages className="size-4" />{t("languageOption")}</Button></header>
     <div className="mx-auto grid max-w-6xl gap-10 px-5 pb-12 pt-4 sm:px-10 lg:min-h-[75vh] lg:grid-cols-2 lg:gap-20 lg:pt-10">
       <section className="relative flex min-h-56 flex-col overflow-hidden rounded-[28px] bg-[#501b24] p-7 text-white sm:p-10 lg:min-h-[480px]">
-        <div aria-hidden="true" className="absolute -bottom-40 -right-32 size-[480px] rounded-full border border-[#efbcc4]/15" />
-        <div aria-hidden="true" className="absolute -bottom-24 -right-16 size-80 rounded-full border border-[#efbcc4]/15" />
-        <div className="relative flex items-center justify-between"><span className="text-[10px] font-medium uppercase tracking-[.18em] text-[#f0cdd3]">{t(`${role}Access`)}</span><Icon className="size-6 stroke-[1.5] text-[#f0cdd3]" /></div>
+        <div aria-hidden="true" className="absolute -bottom-40 -right-32 size-[480px] rounded-full border border-[#d9c6b2]/15" />
+        <div aria-hidden="true" className="absolute -bottom-24 -right-16 size-80 rounded-full border border-[#d9c6b2]/15" />
+        <div className="relative flex items-center justify-between"><span className="text-[10px] font-medium uppercase tracking-[.18em] text-[#e3d5cd]">{t(`${role}Access`)}</span><Icon className="size-6 stroke-[1.5] text-[#e3d5cd]" /></div>
         <div className="relative flex flex-1 items-center py-8 lg:py-16"><h1 className="text-4xl font-medium tracking-tight sm:text-5xl">{t(role)}</h1></div>
       </section>
       <section className="flex items-center lg:py-12"><form onSubmit={signIn} className="w-full space-y-7 rounded-2xl border bg-white p-6 sm:p-8 lg:border-0 lg:bg-transparent lg:p-0" aria-busy={pending}>

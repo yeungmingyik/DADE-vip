@@ -1,4 +1,5 @@
 import { DemoError, type DemoState } from "./domain";
+import { migrateDemoState } from "./migrations";
 
 export const DEMO_STORAGE_KEY = "sspc-vip:browser-demo:v1";
 
@@ -23,9 +24,9 @@ export async function withDemoStorage<T>(initial: () => DemoState, operation: (s
   return navigator.locks.request(DEMO_STORAGE_KEY, { mode: "exclusive", ...(signal ? { signal } : {}) }, () => {
     signal?.throwIfAborted();
     const stored = readDemoStorage();
-    const state = stored ?? initial();
+    const state = stored ? migrateDemoState(stored) : initial();
     const output = operation(state);
-    if (!stored || output.state !== state) {
+    if (!stored || output.state !== stored) {
       try { window.localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(output.state)); }
       catch { throw new DemoError("INTERNAL_ERROR", 500); }
     }

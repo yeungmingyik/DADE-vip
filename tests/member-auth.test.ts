@@ -76,7 +76,9 @@ describe("member OTP authentication", () => {
     expect(service.database.prepare("SELECT id FROM members WHERE phone = ?").get("+6581234567")).toBeUndefined();
     const result = auth.register(verification.registrationToken, "  New Member  ");
     const member = service.state(result.authentication.session).selectedMember!;
-    expect(member).toMatchObject({ name: "New Member", phone: "+6581234567", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0 });
+    expect(member).toMatchObject({ number: "DADE 10025", name: "New Member", phone: "+6581234567", points: 0, visits: 0, tier: "bronze", monthlyRedeemed: 0 });
+    expect(member.code).toMatch(/^dade_[a-f0-9]{32}$/);
+    expect(service.state(service.persona("staff"), { search: member.number }).members.map((entry) => entry.id)).toEqual([member.id]);
     expect(() => auth.register(verification.registrationToken, "Renamed")).toThrow("REGISTRATION_INVALID");
     expect(service.state(service.persona("staff", "s002"), { storeId: "st002", memberId: member.id, search: "+65 8123 4567" }).members.map((item) => item.id)).toContain(member.id);
     expect(service.state(service.persona("staff", "s003"), { storeId: "st003", memberId: member.id }).selectedMember?.id).toBe(member.id);
