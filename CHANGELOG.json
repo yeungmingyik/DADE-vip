@@ -1,6 +1,34 @@
 {
   "releases": [
     {
+      "version": "0.4.2",
+      "date": "2026-09-23",
+      "changes": {
+        "added": [],
+        "changed": [
+          {
+            "en": "Updated wordmarks, member cards, sign-in pages and page titles to DADE.",
+            "zh-CN": "三端标识、会员卡、登录页与页面标题统一使用 DADE。"
+          },
+          {
+            "en": "Refined English and Simplified Chinese interface text, transaction feedback, validation and accessibility labels across all three workspaces.",
+            "zh-CN": "审校三端中英文界面、交易反馈、校验提示与无障碍标签，统一业务术语与表达。"
+          }
+        ],
+        "fixed": [
+          {
+            "en": "Corrected English quantity plurals, membership-tier table headings and completed-action labels in the audit history.",
+            "zh-CN": "修正英文数量单复数、会员等级表头及操作日志中的完成状态表述。"
+          },
+          {
+            "en": "Clarified original amounts, refunds and net spend; unified CSV headings, redemption statuses and Singapore date formatting.",
+            "zh-CN": "明确原消费金额、退款金额与消费净额，统一 CSV 表头、兑换状态和新加坡日期格式。"
+          }
+        ],
+        "removed": []
+      }
+    },
+    {
       "version": "0.4.1",
       "date": "2026-09-22",
       "changes": {

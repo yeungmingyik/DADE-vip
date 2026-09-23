@@ -139,7 +139,7 @@ export function executeDemoRequest(state: DemoState, input: string, init: Reques
       const session = requireSession(state, query.role, now);
       if (url.pathname === "/api/state") return { state, response: jsonResponse(readDemoAppData(state, session, query, now)) };
       const csv = exportDemoCsv(state, session, query, query.locale ?? "en", now);
-      return { state, response: new Response(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Cache-Control": "no-store", "Content-Disposition": `attachment; filename="sspc-${query.section === "redemptions" ? "redemptions" : "purchases"}.csv"` } }) };
+      return { state, response: new Response(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Cache-Control": "no-store", "Content-Disposition": `attachment; filename="dade-${query.section === "redemptions" ? "redemptions" : "purchases"}.csv"` } }) };
     }
     throw new DemoError("NOT_FOUND", 404);
   } catch (error) {

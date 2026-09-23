@@ -1,5 +1,7 @@
 import type { ActionInput, ActionResult, Activity, AppData, AuditEvent, Gift, Locale, Member, Purchase, Redemption, Role, RuleSet, Session, Staff, StateQuery, Store } from "../lib/types";
+import { dateTime } from "../lib/format";
 import { businessDay, businessMonth, pointsForAmount, tierForVisits } from "../modules/rules";
+import { exportMessages } from "../messages/export";
 import { actionSchema } from "../server/validation";
 import seed from "./seed.json";
 
@@ -363,14 +365,15 @@ export function readDemoAppData(state: DemoState, suppliedSession: Session, quer
 export function exportDemoCsv(state: DemoState, session: Session, query: StateQuery, locale: Locale, now: Date): string {
   if (session.role !== "admin") throw new DemoError("FORBIDDEN", 403);
   const rows: unknown[][] = [];
+  const messages = exportMessages[locale];
   const storeName = (id: string) => required(state.stores.find((item) => item.id === id)).name[locale];
-  const date = (value: string) => new Date(value).toLocaleString(locale, { timeZone: "Asia/Singapore" });
+  const date = (value: string) => dateTime(value, locale);
   if (query.section === "redemptions") {
-    rows.push(locale === "zh-CN" ? ["兑换编号", "会员", "门店", "礼品", "数量", "积分", "状态", "时间（新加坡）"] : ["Redemption", "Member", "Store", "Gift", "Quantity", "Points", "Status", "Time (Singapore)"]);
-    const statuses = locale === "zh-CN" ? { confirmed: "待领取", fulfilled: "已领取", cancelled: "已取消" } : { confirmed: "Awaiting collection", fulfilled: "Collected", cancelled: "Cancelled" };
+    rows.push([...messages.redemptionHeaders]);
+    const statuses = messages.redemptionStatuses;
     for (const item of filteredRecords(state, state.redemptions, session, query, now).sort((a, b) => b.createdAt.localeCompare(a.createdAt))) rows.push([item.id, item.memberName, storeName(item.storeId), item.giftName[locale], item.quantity, item.points, statuses[item.status], date(item.createdAt)]);
   } else {
-    rows.push(locale === "zh-CN" ? ["收据", "会员", "门店", "金额（SGD）", "退款（SGD）", "有效积分", "时间（新加坡）"] : ["Receipt", "Member", "Store", "Amount (SGD)", "Refund (SGD)", "Effective points", "Time (Singapore)"]);
+    rows.push([...messages.purchaseHeaders]);
     for (const item of filteredRecords(state, state.purchases, session, query, now).sort((a, b) => b.createdAt.localeCompare(a.createdAt))) rows.push([item.receipt, item.memberName, storeName(item.storeId), (item.amountCents / 100).toFixed(2), (item.refundedCents / 100).toFixed(2), item.points, date(item.createdAt)]);
   }
   const escape = (value: unknown) => { let text = String(value ?? ""); if (/^[=+\-@\t\r]/.test(text)) text = `'${text}`; return `"${text.replaceAll('"', '""')}"`; };

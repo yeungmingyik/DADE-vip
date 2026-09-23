@@ -9,7 +9,7 @@ export async function GET(request: Request): Promise<Response> {
     const query = requestStateQuery(request);
     const session = await authorizedSession(request);
     const csv = getService().exportCsv(session, query, query.locale);
-    return new Response(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="sspc-${query.section === "redemptions" ? "redemptions" : "purchases"}.csv"`, "Cache-Control": "no-store" } });
+    return new Response(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="dade-${query.section === "redemptions" ? "redemptions" : "purchases"}.csv"`, "Cache-Control": "no-store" } });
   } catch (error) {
     return errorResponse(error);
   }

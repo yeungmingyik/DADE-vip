@@ -242,7 +242,7 @@ describe("browser demo authentication and HTTP responses", () => {
     const result = executeDemoRequest(demo.state, "/api/export?role=admin&section=purchases&locale=zh-CN&storeId=st001&search=Alex&page=999", {}, instant);
     const csv = await result.response.text();
     expect(result.response.status).toBe(200);
-    expect(csv).toContain('"收据","会员"');
+    expect(csv).toContain('"收据编号","会员"');
     expect(csv).toContain('"\'=SUM(A1:A2)"');
     expect(csv).not.toContain("Rachel Tan");
     expect(csv.split("\r\n").length - 2).toBe(demo.data("admin", { section: "purchases", storeId: "st001", search: "Alex" }).pagination.total);

@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import type { Locale, Role } from "@/lib/types";
+import { BRAND_NAME } from "@/lib/brand";
 import { commonMessages } from "@/messages/common";
 import { memberMessages } from "@/messages/member";
 import { staffMessages } from "@/messages/staff";
@@ -17,7 +18,7 @@ export function LocaleProvider({ initialLocale, surface, children }: { initialLo
   useEffect(() => { updateLocale(initialLocale); }, [initialLocale]);
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.title = `SSPC · ${commonMessages[locale][surface]}`;
+    document.title = `${BRAND_NAME} · ${commonMessages[locale][surface]}`;
   }, [locale, surface]);
   const setLocale = (next: Locale) => {
     updateLocale(next);

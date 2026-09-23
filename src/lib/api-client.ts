@@ -16,7 +16,7 @@ export async function downloadExport(path: string): Promise<void> {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = response.headers.get("Content-Disposition")?.match(/filename="([a-z0-9-]+\.csv)"/i)?.[1] ?? "sspc-export.csv";
+  anchor.download = response.headers.get("Content-Disposition")?.match(/filename="([a-z0-9-]+\.csv)"/i)?.[1] ?? "dade-export.csv";
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

@@ -1,7 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import type { DatabaseSync, SQLInputValue } from "node:sqlite";
 import type { ActionInput, ActionResult, Activity, AppData, AuditEvent, Gift, Locale, Member, Purchase, Redemption, Role, RuleSet, Session, Staff, StateQuery, Store } from "../lib/types";
+import { dateTime } from "../lib/format";
 import { businessDay, businessMonth, pointsForAmount, tierForVisits } from "../modules/rules";
+import { exportMessages } from "../messages/export";
 import { openDatabase } from "./database";
 import { DomainError } from "./errors";
 import { seedDatabase } from "./seed";
@@ -527,15 +529,16 @@ export class SspcService {
       return `"${text.replaceAll('"', '""')}"`;
     };
     const rows: unknown[][] = [];
+    const messages = exportMessages[locale];
     if (section === "purchases") {
       const p = this.conditions(session, query, "p");
-      rows.push(locale === "zh-CN" ? ["收据", "会员", "门店", "金额（SGD）", "退款（SGD）", "有效积分", "时间（新加坡）"] : ["Receipt", "Member", "Store", "Amount (SGD)", "Refund (SGD)", "Effective points", "Time (Singapore)"]);
-      for (const row of this.rows(`SELECT p.*, m.name AS member_name, s.name_en, s.name_zh FROM purchases p JOIN members m ON m.id = p.member_id JOIN stores s ON s.id = p.store_id ${p.sql} ORDER BY p.created_at DESC`, ...p.params)) rows.push([row.receipt, row.member_name, locale === "zh-CN" ? row.name_zh : row.name_en, (Number(row.amount_cents) / 100).toFixed(2), (Number(row.refunded_cents) / 100).toFixed(2), row.points, new Date(String(row.created_at)).toLocaleString(locale, { timeZone: "Asia/Singapore" })]);
+      rows.push([...messages.purchaseHeaders]);
+      for (const row of this.rows(`SELECT p.*, m.name AS member_name, s.name_en, s.name_zh FROM purchases p JOIN members m ON m.id = p.member_id JOIN stores s ON s.id = p.store_id ${p.sql} ORDER BY p.created_at DESC`, ...p.params)) rows.push([row.receipt, row.member_name, locale === "zh-CN" ? row.name_zh : row.name_en, (Number(row.amount_cents) / 100).toFixed(2), (Number(row.refunded_cents) / 100).toFixed(2), row.points, dateTime(String(row.created_at), locale)]);
     } else {
       const r = this.conditions(session, query, "r");
-      const statuses = locale === "zh-CN" ? { confirmed: "待领取", fulfilled: "已领取", cancelled: "已取消" } : { confirmed: "Awaiting collection", fulfilled: "Collected", cancelled: "Cancelled" };
-      rows.push(locale === "zh-CN" ? ["兑换编号", "会员", "门店", "礼品", "数量", "积分", "状态", "时间（新加坡）"] : ["Redemption", "Member", "Store", "Gift", "Quantity", "Points", "Status", "Time (Singapore)"]);
-      for (const row of this.rows(`SELECT r.*, m.name AS member_name, s.name_en, s.name_zh FROM redemptions r JOIN members m ON m.id = r.member_id JOIN stores s ON s.id = r.store_id ${r.sql} ORDER BY r.created_at DESC`, ...r.params)) rows.push([row.id, row.member_name, locale === "zh-CN" ? row.name_zh : row.name_en, locale === "zh-CN" ? row.gift_name_zh : row.gift_name_en, row.quantity, row.points, statuses[row.status as Redemption["status"]], new Date(String(row.created_at)).toLocaleString(locale, { timeZone: "Asia/Singapore" })]);
+      const statuses = messages.redemptionStatuses;
+      rows.push([...messages.redemptionHeaders]);
+      for (const row of this.rows(`SELECT r.*, m.name AS member_name, s.name_en, s.name_zh FROM redemptions r JOIN members m ON m.id = r.member_id JOIN stores s ON s.id = r.store_id ${r.sql} ORDER BY r.created_at DESC`, ...r.params)) rows.push([row.id, row.member_name, locale === "zh-CN" ? row.name_zh : row.name_en, locale === "zh-CN" ? row.gift_name_zh : row.gift_name_en, row.quantity, row.points, statuses[row.status as Redemption["status"]], dateTime(String(row.created_at), locale)]);
     }
     return `\uFEFF${rows.map((row) => row.map(escape).join(",")).join("\r\n")}\r\n`;
   }

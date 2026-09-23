@@ -2,6 +2,8 @@
 import { apiRequest } from "@/lib/api-client";
 
 import Link from "next/link";
+import { BrandMark } from "@/components/shared/brand-mark";
+import { BRAND_LABEL, BRAND_NAME } from "@/lib/brand";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -250,7 +252,7 @@ export function MemberAuth({ enabled }: { enabled: boolean }) {
 
   return <div className="min-h-svh bg-[#f6f7f4] text-[#1d2925]">
     <header className="mx-auto flex min-h-20 max-w-6xl items-center justify-between gap-3 px-4 sm:px-8">
-      <Link href={`/${locale}`} aria-label="Sing Spare Parts Co. Pte Ltd" className="inline-flex min-h-11 items-center text-[27px] font-extrabold tracking-[-0.08em]">SSPC<span className="text-[#9ba971]">.</span></Link>
+      <Link href={`/${locale}`} aria-label={BRAND_LABEL} className="inline-flex min-h-11 items-center"><BrandMark className="text-[27px]" /></Link>
       <Button type="button" variant="ghost" className="min-h-11 gap-2 px-3 text-xs" disabled={busyState} aria-label={`${t("language")}: ${t("languageOption")}`} onClick={() => setLocale(locale === "en" ? "zh-CN" : "en")}><Languages aria-hidden="true" className="size-4" />{t("languageOption")}</Button>
     </header>
     <main className="mx-auto flex w-full max-w-[480px] flex-col px-4 pb-12 pt-4 sm:pt-10">
@@ -259,7 +261,7 @@ export function MemberAuth({ enabled }: { enabled: boolean }) {
         <div className="relative isolate overflow-hidden bg-[#153e34] px-6 pb-7 pt-6 text-white sm:px-8 sm:pb-8 sm:pt-8">
           <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-28 -z-10 size-72 rounded-full border border-[#d8dfb1]/15" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 -z-10 size-48 rounded-full bg-[#789176]/10" />
-          <div className="mb-8 flex items-center justify-between gap-3"><span className="text-[10px] font-medium uppercase tracking-[0.19em] text-[#d5e4c5]">SSPC · {t("membership")}</span><CreditCard aria-hidden="true" className="size-6 stroke-[1.5] text-[#d5e4c5]" /></div>
+          <div className="mb-8 flex items-center justify-between gap-3"><span className="text-[10px] font-medium uppercase tracking-[0.19em] text-[#d5e4c5]">{BRAND_NAME} · {t("membership")}</span><CreditCard aria-hidden="true" className="size-6 stroke-[1.5] text-[#d5e4c5]" /></div>
           <h1 className="text-[26px] font-medium leading-tight tracking-[-0.035em] sm:text-[30px]">{t(title)}</h1>
           <p className="mt-3 text-[10px] leading-relaxed tracking-[0.035em] text-[#d4dfd3]">Sing Spare Parts Co. Pte Ltd</p>
         </div>
